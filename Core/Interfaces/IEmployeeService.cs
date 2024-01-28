@@ -8,5 +8,7 @@ namespace Core.Interfaces
 {
     public interface IEmployeeService
     {
+        Task<Employee>
+
     }
 }
