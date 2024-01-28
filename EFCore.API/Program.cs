@@ -1,5 +1,7 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Concrete;
+using Persistence.Interface;
 
 namespace EFCore.API
 {
@@ -23,6 +25,11 @@ namespace EFCore.API
                     x.UseSqlServer(builder.Configuration.GetConnectionString("EFCoreConnectionString"));
                 });
 
+            // registering dependencies
+
+            builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
 
             var app = builder.Build();
 

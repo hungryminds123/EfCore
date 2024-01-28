@@ -13,5 +13,8 @@
 
         public string Gender { get; set; }
 
+
+        // How to create a foreign key constraint using EFCore code first approach.
+
     }
 }
