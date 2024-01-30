@@ -1,4 +1,6 @@
-﻿namespace Domain
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
+namespace Domain
 {
     public class Department
     {
@@ -6,5 +8,6 @@
 
         public string DepartmentName { get; set; }
 
+        public virtual ICollection<Employee> Employee { get; set; }  // navigation property
     }
 }

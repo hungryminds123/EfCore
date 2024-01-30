@@ -4,6 +4,7 @@ using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(EFCoreLearningDBContext))]
-    partial class EFCoreLearningDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240130023420_AddedForeignKeyReferencesToEmployeeDepartment")]
+    partial class AddedForeignKeyReferencesToEmployeeDepartment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,7 +87,8 @@ namespace Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
+                    b.HasIndex("DepartmentId")
+                        .IsUnique();
 
                     b.ToTable("Employees");
                 });
@@ -92,8 +96,8 @@ namespace Domain.Migrations
             modelBuilder.Entity("Domain.Employee", b =>
                 {
                     b.HasOne("Domain.Department", "Department")
-                        .WithMany("Employee")
-                        .HasForeignKey("DepartmentId")
+                        .WithOne("Employee")
+                        .HasForeignKey("Domain.Employee", "DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -102,7 +106,8 @@ namespace Domain.Migrations
 
             modelBuilder.Entity("Domain.Department", b =>
                 {
-                    b.Navigation("Employee");
+                    b.Navigation("Employee")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

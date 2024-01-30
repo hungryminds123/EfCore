@@ -12,6 +12,8 @@ namespace Domain.Configurations
             builder.Property(x => x.FirstName).HasMaxLength(100).IsRequired();
             builder.Property(x => x.LastName).HasMaxLength(100).IsRequired();
             builder.Property(x => x.CreatedBy).HasMaxLength(250);
+
+            builder.HasOne(x => x.Department).WithMany(z => z.Employee).HasForeignKey(x => x.DepartmentId);
         }
     }
 }

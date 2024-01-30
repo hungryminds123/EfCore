@@ -1,5 +1,5 @@
 ﻿using Core.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EFCore.API.Controllers
@@ -8,20 +8,20 @@ namespace EFCore.API.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private readonly IEmployeeService service;
+        private readonly IEmployeeService _employeeService;
 
         public EmployeeController(IEmployeeService service)
         {
-            this.service = service;
+           _employeeService = service;
         }
 
 
         [HttpGet]
-        [Route("/getEmployees")]
-        public async IActionResult Get()
+        public async Task<IEnumerable<EmployeeViewModel>> Get()
         {
+            var data = await _employeeService.GetAllEmployees();
 
-            return Ok();
+            return data;
         }
     }
 }

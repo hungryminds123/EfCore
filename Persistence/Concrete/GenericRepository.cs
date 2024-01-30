@@ -30,14 +30,19 @@ namespace Persistence.Concrete
             return await _dbContext.Set<T>().FirstOrDefaultAsync(predicate);
         }
 
-        public Task<IEnumerable<T>> FindAll(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<T>> FindAll(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<T>().Where(predicate).ToListAsync();
         }
 
-        public Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> FindAll()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<T>().ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _dbContext.Set<T>().ToListAsync();
         }
 
         public Task<T> GetByIdAsync(int id)

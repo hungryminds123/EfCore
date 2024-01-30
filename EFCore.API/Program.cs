@@ -1,3 +1,5 @@
+using Core.Concrete;
+using Core.Interfaces;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Concrete;
@@ -30,6 +32,8 @@ namespace EFCore.API
             builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+
+            builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 
             var app = builder.Build();
 

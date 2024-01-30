@@ -13,6 +13,10 @@
 
         public string Gender { get; set; }
 
+        public int DepartmentId { get; set; }
+
+        public virtual Department Department { get; set; }  // navigation property 
+
 
         // How to create a foreign key constraint using EFCore code first approach.
 
